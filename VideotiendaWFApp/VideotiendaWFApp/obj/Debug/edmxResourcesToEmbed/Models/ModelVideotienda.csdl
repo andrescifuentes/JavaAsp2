@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="VIDEOTIENDAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="alq_videojuegos">
+    <Key>
+      <PropertyRef Name="id_alq_videojuegos" />
+    </Key>
+    <Property Name="id_alq_videojuegos" Type="Decimal" Precision="11" Scale="0" Nullable="false" />
+    <Property Name="id_alquiler" Type="Decimal" Precision="11" Scale="0" />
+    <Property Name="nro_referencia" Type="Decimal" Precision="11" Scale="0" />
+    <NavigationProperty Name="alquiler" Relationship="Self.FK__alq_video__id_al__73BA3083" FromRole="alq_videojuegos" ToRole="alquiler" />
+    <NavigationProperty Name="personas" Relationship="Self.FK__alq_video__nro_r__74AE54BC" FromRole="alq_videojuegos" ToRole="personas" />
+  </EntityType>
+  <EntityType Name="alquiler">
+    <Key>
+      <PropertyRef Name="id_alquiler" />
+    </Key>
+    <Property Name="id_alquiler" Type="Decimal" Precision="11" Scale="0" Nullable="false" />
+    <Property Name="fec_alquiler" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="fec_devolucion" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="vlr_alquiler" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
+    <Property Name="vlr_multas" Type="Decimal" Precision="5" Scale="0" />
+    <Property Name="nro_doc" Type="Decimal" Precision="11" Scale="0" />
+    <NavigationProperty Name="alq_videojuegos" Relationship="Self.FK__alq_video__id_al__73BA3083" FromRole="alquiler" ToRole="alq_videojuegos" />
+    <NavigationProperty Name="personas" Relationship="Self.FK__alquiler__nro_do__70DDC3D8" FromRole="alquiler" ToRole="personas" />
+  </EntityType>
+  <EntityType Name="cat_videojuegos">
+    <Key>
+      <PropertyRef Name="id_cat_videojuego" />
+    </Key>
+    <Property Name="id_cat_videojuego" Type="Decimal" Precision="11" Scale="0" Nullable="false" />
+    <Property Name="id_categoria" Type="Decimal" Precision="11" Scale="0" />
+    <Property Name="nro_referencia" Type="Decimal" Precision="11" Scale="0" />
+    <NavigationProperty Name="categorias" Relationship="Self.FK__cat_video__id_ca__6D0D32F4" FromRole="cat_videojuegos" ToRole="categorias" />
+    <NavigationProperty Name="videojuegos" Relationship="Self.FK__cat_video__nro_r__6E01572D" FromRole="cat_videojuegos" ToRole="videojuegos" />
+  </EntityType>
+  <EntityType Name="categorias">
+    <Key>
+      <PropertyRef Name="id_categoria" />
+    </Key>
+    <Property Name="id_categoria" Type="Decimal" Precision="11" Scale="0" Nullable="false" />
+    <Property Name="nom_categoria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="cat_videojuegos" Relationship="Self.FK__cat_video__id_ca__6D0D32F4" FromRole="categorias" ToRole="cat_videojuegos" />
+  </EntityType>
+  <EntityType Name="dominios">
+    <Key>
+      <PropertyRef Name="tipo_dominio" />
+      <PropertyRef Name="id_dominio" />
+    </Key>
+    <Property Name="tipo_dominio" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_dominio" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="vlr_dominio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="personas">
+    <Key>
+      <PropertyRef Name="nro_doc" />
+    </Key>
+    <Property Name="nro_doc" Type="Decimal" Precision="11" Scale="0" Nullable="false" />
+    <Property Name="tipo_doc" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="celular" Type="Decimal" Precision="11" Scale="0" Nullable="false" />
+    <Property Name="correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tipo_persona" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="contrasena" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="alq_videojuegos" Relationship="Self.FK__alq_video__nro_r__74AE54BC" FromRole="personas" ToRole="alq_videojuegos" />
+    <NavigationProperty Name="alquiler" Relationship="Self.FK__alquiler__nro_do__70DDC3D8" FromRole="personas" ToRole="alquiler" />
+  </EntityType>
+  <EntityType Name="productores">
+    <Key>
+      <PropertyRef Name="id_prod" />
+    </Key>
+    <Property Name="id_prod" Type="Decimal" Precision="11" Scale="0" Nullable="false" />
+    <Property Name="nom_prod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="videojuegos" Relationship="Self.FK__videojueg__id_pr__6A30C649" FromRole="productores" ToRole="videojuegos" />
+  </EntityType>
+  <EntityType Name="videojuegos">
+    <Key>
+      <PropertyRef Name="nro_referencia" />
+    </Key>
+    <Property Name="nro_referencia" Type="Decimal" Precision="11" Scale="0" Nullable="false" />
+    <Property Name="nom_videojuego" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="img_videojuego" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="id_prod" Type="Decimal" Precision="11" Scale="0" />
+    <NavigationProperty Name="cat_videojuegos" Relationship="Self.FK__cat_video__nro_r__6E01572D" FromRole="videojuegos" ToRole="cat_videojuegos" />
+    <NavigationProperty Name="productores" Relationship="Self.FK__videojueg__id_pr__6A30C649" FromRole="videojuegos" ToRole="productores" />
+  </EntityType>
+  <Association Name="FK__alq_video__id_al__73BA3083">
+    <End Role="alquiler" Type="Self.alquiler" Multiplicity="0..1" />
+    <End Role="alq_videojuegos" Type="Self.alq_videojuegos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="alquiler">
+        <PropertyRef Name="id_alquiler" />
+      </Principal>
+      <Dependent Role="alq_videojuegos">
+        <PropertyRef Name="id_alquiler" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__alq_video__nro_r__74AE54BC">
+    <End Role="personas" Type="Self.personas" Multiplicity="0..1" />
+    <End Role="alq_videojuegos" Type="Self.alq_videojuegos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="personas">
+        <PropertyRef Name="nro_doc" />
+      </Principal>
+      <Dependent Role="alq_videojuegos">
+        <PropertyRef Name="nro_referencia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__alquiler__nro_do__70DDC3D8">
+    <End Role="personas" Type="Self.personas" Multiplicity="0..1" />
+    <End Role="alquiler" Type="Self.alquiler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="personas">
+        <PropertyRef Name="nro_doc" />
+      </Principal>
+      <Dependent Role="alquiler">
+        <PropertyRef Name="nro_doc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__cat_video__id_ca__6D0D32F4">
+    <End Role="categorias" Type="Self.categorias" Multiplicity="0..1" />
+    <End Role="cat_videojuegos" Type="Self.cat_videojuegos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categorias">
+        <PropertyRef Name="id_categoria" />
+      </Principal>
+      <Dependent Role="cat_videojuegos">
+        <PropertyRef Name="id_categoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__cat_video__nro_r__6E01572D">
+    <End Role="videojuegos" Type="Self.videojuegos" Multiplicity="0..1" />
+    <End Role="cat_videojuegos" Type="Self.cat_videojuegos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="videojuegos">
+        <PropertyRef Name="nro_referencia" />
+      </Principal>
+      <Dependent Role="cat_videojuegos">
+        <PropertyRef Name="nro_referencia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__videojueg__id_pr__6A30C649">
+    <End Role="productores" Type="Self.productores" Multiplicity="0..1" />
+    <End Role="videojuegos" Type="Self.videojuegos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productores">
+        <PropertyRef Name="id_prod" />
+      </Principal>
+      <Dependent Role="videojuegos">
+        <PropertyRef Name="id_prod" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="VIDEOTIENDAEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="alq_videojuegos" EntityType="Self.alq_videojuegos" />
+    <EntitySet Name="alquiler" EntityType="Self.alquiler" />
+    <EntitySet Name="cat_videojuegos" EntityType="Self.cat_videojuegos" />
+    <EntitySet Name="categorias" EntityType="Self.categorias" />
+    <EntitySet Name="dominios" EntityType="Self.dominios" />
+    <EntitySet Name="personas" EntityType="Self.personas" />
+    <EntitySet Name="productores" EntityType="Self.productores" />
+    <EntitySet Name="videojuegos" EntityType="Self.videojuegos" />
+    <AssociationSet Name="FK__alq_video__id_al__73BA3083" Association="Self.FK__alq_video__id_al__73BA3083">
+      <End Role="alquiler" EntitySet="alquiler" />
+      <End Role="alq_videojuegos" EntitySet="alq_videojuegos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__alq_video__nro_r__74AE54BC" Association="Self.FK__alq_video__nro_r__74AE54BC">
+      <End Role="personas" EntitySet="personas" />
+      <End Role="alq_videojuegos" EntitySet="alq_videojuegos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__alquiler__nro_do__70DDC3D8" Association="Self.FK__alquiler__nro_do__70DDC3D8">
+      <End Role="personas" EntitySet="personas" />
+      <End Role="alquiler" EntitySet="alquiler" />
+    </AssociationSet>
+    <AssociationSet Name="FK__cat_video__id_ca__6D0D32F4" Association="Self.FK__cat_video__id_ca__6D0D32F4">
+      <End Role="categorias" EntitySet="categorias" />
+      <End Role="cat_videojuegos" EntitySet="cat_videojuegos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__cat_video__nro_r__6E01572D" Association="Self.FK__cat_video__nro_r__6E01572D">
+      <End Role="videojuegos" EntitySet="videojuegos" />
+      <End Role="cat_videojuegos" EntitySet="cat_videojuegos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__videojueg__id_pr__6A30C649" Association="Self.FK__videojueg__id_pr__6A30C649">
+      <End Role="productores" EntitySet="productores" />
+      <End Role="videojuegos" EntitySet="videojuegos" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
