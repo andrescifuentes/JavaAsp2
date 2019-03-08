@@ -107,7 +107,6 @@
             this.txtTipo.Name = "txtTipo";
             this.txtTipo.Size = new System.Drawing.Size(200, 21);
             this.txtTipo.TabIndex = 3;
-            this.txtTipo.Text = "c";
             this.txtTipo.TextChanged += new System.EventHandler(this.txtTipo_TextChanged);
             // 
             // lblValor
@@ -155,7 +154,9 @@
             this.grDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grDatos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grDatos.Location = new System.Drawing.Point(3, 17);
+            this.grDatos.MultiSelect = false;
             this.grDatos.Name = "grDatos";
+            this.grDatos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grDatos.Size = new System.Drawing.Size(902, 196);
             this.grDatos.TabIndex = 0;
             // 
@@ -179,6 +180,7 @@
             this.btnEditar.TabIndex = 3;
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // btnElimiar
             // 

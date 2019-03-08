@@ -35,6 +35,24 @@ namespace VideotiendaWFApp.Views
                 grDatos.DataSource = lstDominios.ToList();   //lstDominios la definimos para referenciar o traer la bd
             }
         }
+
+        private dominios getselectedItem()
+        {
+            dominios d = new dominios();
+            try
+            {  // va la a fila dominios y toma el indice   rows =filas   cells = celda
+                d.tipo_dominio = grDatos.Rows[grDatos.CurrentRow.Index].Cells[0].Value.ToString();
+
+                d.id_dominio = grDatos.Rows[grDatos.CurrentRow.Index].Cells[1].Value.ToString();
+
+                return d;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         #endregion
         // funciones del boton buscar
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -98,7 +116,22 @@ namespace VideotiendaWFApp.Views
 
             frmGestionarDominios.ShowDialog();
 
+            refrescarTabla();
 
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            dominios d = getselectedItem();      // el obejto es d
+
+            if  (d != null)
+            {
+                Views.FrmGestionarDominios frmGestionarDominios
+                      = new Views.FrmGestionarDominios(d.tipo_dominio, d.id_dominio);
+                frmGestionarDominios.ShowDialog();
+
+                refrescarTabla();
+            }
 
         }
     }

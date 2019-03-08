@@ -108,6 +108,12 @@
     <Compile Include="Views\FrmDominios.Designer.cs">
       <DependentUpon>FrmDominios.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\FrmGestionarDominios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FrmGestionarDominios.Designer.cs">
+      <DependentUpon>FrmGestionarDominios.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -119,6 +125,9 @@
     </Compile>
     <EmbeddedResource Include="Views\FrmDominios.resx">
       <DependentUpon>FrmDominios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FrmGestionarDominios.resx">
+      <DependentUpon>FrmGestionarDominios.cs</DependentUpon>
     </EmbeddedResource>
     <EntityDeploy Include="Models\ModelVideotienda.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

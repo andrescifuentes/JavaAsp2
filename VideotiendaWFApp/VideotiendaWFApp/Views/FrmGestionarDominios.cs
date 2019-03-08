@@ -33,7 +33,20 @@ namespace VideotiendaWFApp.Views
             this.txtTipo.Select();
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
+        private void cargarDatos()
+        {
+            using(VIDEOTIENDAEntities db = new VIDEOTIENDAEntities())
+            {
+                //odominos es el obejto  db base de datos find es buscar en la base de datos 
+                oDominio = db.dominios.Find(tipoDominio,idDominio);
+                txtTipo.Text = oDominio.tipo_dominio;
+                txtId.Text = oDominio.id_dominio;
+                txtValor.Text = oDominio.vlr_dominio;
+            }
+
+        }
+
+        private void btnCancelar_Click(object sender,    EventArgs e)
         {
             this.Close();
             //para que cierre la ventana
@@ -64,6 +77,11 @@ namespace VideotiendaWFApp.Views
 
 
             }
+        }
+
+        private void txtTipo_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
