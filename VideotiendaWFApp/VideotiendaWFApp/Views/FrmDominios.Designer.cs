@@ -191,6 +191,7 @@
             this.btnElimiar.TabIndex = 4;
             this.btnElimiar.Text = "Eliminar";
             this.btnElimiar.UseVisualStyleBackColor = true;
+            this.btnElimiar.Click += new System.EventHandler(this.btnElimiar_Click);
             // 
             // btnRegresar
             // 

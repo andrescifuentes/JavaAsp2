@@ -38,13 +38,14 @@ namespace VideotiendaWFApp.Views
 
         private dominios getselectedItem()
         {
+            // inicializa objeto para almacenar dominios seleccionado en la tabla 
             dominios d = new dominios();
             try
             {  // va la a fila dominios y toma el indice   rows =filas   cells = celda
                 d.tipo_dominio = grDatos.Rows[grDatos.CurrentRow.Index].Cells[0].Value.ToString();
 
                 d.id_dominio = grDatos.Rows[grDatos.CurrentRow.Index].Cells[1].Value.ToString();
-
+               // retornar objeto con datos  del dominio seleccionado en la tabla 
                 return d;
             }
             catch
@@ -122,17 +123,50 @@ namespace VideotiendaWFApp.Views
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
+            // obetener  dominio que se seleccion en la tabla para editar
             dominios d = getselectedItem();      // el obejto es d
-
+            // se pregunta si hubo seleccion
             if  (d != null)
             {
-                Views.FrmGestionarDominios frmGestionarDominios
-                      = new Views.FrmGestionarDominios(d.tipo_dominio, d.id_dominio);
+                // inicializar formulario edicion de dominios 
+                Views.FrmGestionarDominios frmGestionarDominios  
+                      = new Views.FrmGestionarDominios(d.tipo_dominio, d.id_dominio); // llama al formulario
+                // abrir formulario  de edicion dominios 
                 frmGestionarDominios.ShowDialog();
-
+                // refrescar tabla cuando regres del formulario de edicion 
                 refrescarTabla();
             }
 
+        }
+
+        private void btnElimiar_Click(object sender, EventArgs e)
+        {
+            //obtener el dominio que se va eliminar 
+            dominios d = this.getselectedItem();
+            // hubo seleccion?
+            if(d != null)
+            {   // PARA QUE SALGA UN CUADRO DE DIALOGO 
+                if (MessageBox.Show("Esta seguro que desea eliminar este regidtro?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes)
+
+                {
+                    //establecer conexion en la bd a traves de ef
+                    using (VIDEOTIENDAEntities db = new VIDEOTIENDAEntities())
+                    {
+
+                        // buscar el domino en la bd
+                        dominios dEliminar = db.dominios.Find(d.tipo_dominio, d.id_dominio);
+                        // eliminar dominio de la tabla 
+                        db.dominios.Remove(dEliminar);
+                        //confirmar cambios en la bd
+                        db.SaveChanges();
+
+
+                    }
+                    // actualizar tabla
+                    this.refrescarTabla();
+                }
+
+            }
         }
     }
 }

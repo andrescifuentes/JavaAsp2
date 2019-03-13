@@ -22,9 +22,28 @@ namespace VideotiendaWFApp.Views
         //CONSTRUCTOR RESCIBE DOS PARAMETREO
         public FrmGestionarDominios(String tipoDominio ,String idDominio)
         {
+            // dibuja el formulario
             InitializeComponent();
+            // tiene los datros de la llave primaria
             this.tipoDominio = tipoDominio;
             this.idDominio = idDominio;
+            //SI ES MODO EDICION BLOQUEAMOS LOS TEXTBOX DE LA LLAVE PRIMARIA 
+
+            // SI HAT DATOS EDIDICION LLAMOMOS CARGADATOS
+            if (!string.IsNullOrEmpty (this.idDominio) && !string.IsNullOrEmpty(this.tipoDominio))
+                
+                {
+                cargarDatos();
+                this.txtTipo.ReadOnly = true;
+                this.txtId.ReadOnly = true;
+            }
+            else
+            {
+                
+                this.txtTipo.ReadOnly = false;
+                this.txtId.ReadOnly = false;
+            }
+        
         }
 
         private void FrmGestionarDominios_Load(object sender, EventArgs e)
@@ -61,14 +80,26 @@ namespace VideotiendaWFApp.Views
             }
             else
             {
+                //establcer conexion con la bd a traves d ef
                 using (VIDEOTIENDAEntities db  = new VIDEOTIENDAEntities())
                 {  //capta los datos en  los espacios  y los envia a la bd
-                    oDominio = new dominios();
+
+                    if (this.tipoDominio == null && this.idDominio == null)
+                    
+                     oDominio = new dominios();
+                    
                     oDominio.tipo_dominio = this.txtTipo.Text;
                     oDominio.id_dominio = this.txtId.Text;
                     oDominio.vlr_dominio = this.txtValor.Text;
-                    db.dominios.Add(oDominio);
-                    db.SaveChanges(); // guaradar y cancelar
+                    // en modo insercion adicionamos un nuevo registro
+                    if (this.tipoDominio == null && this.idDominio == null)
+                        db.dominios.Add (oDominio);
+
+                    else
+                        // en modo edicion , cambiamos el estado del objeto a modificacion
+                        db.Entry(oDominio).State = System.Data.Entity.EntityState.Modified;
+
+                        db.SaveChanges(); // guaradar y cancelar
 
                     this.Close();
 
